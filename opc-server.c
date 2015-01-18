@@ -62,7 +62,9 @@ typedef enum {
 	DEMO_MODE_NONE = 0,
 	DEMO_MODE_FADE = 1,
 	DEMO_MODE_IDENTIFY = 2,
-	DEMO_MODE_BLACK = 3
+	DEMO_MODE_BLACK = 3,
+	DEMO_MODE_WHITE = 4,
+	DEMO_MODE_HALF = 5
 } demo_mode_t;
 
 typedef struct {
@@ -137,6 +139,8 @@ const char* demo_mode_to_string(demo_mode_t mode) {
 		case DEMO_MODE_FADE: return "fade";
 		case DEMO_MODE_IDENTIFY: return "id";
 		case DEMO_MODE_BLACK: return "black";
+		case DEMO_MODE_WHITE: return "white";
+		case DEMO_MODE_HALF: return "half";
 		default: return "<invalid demo_mode>";
 	}
 }
@@ -150,6 +154,10 @@ demo_mode_t demo_mode_from_string(const char* str) {
 		return DEMO_MODE_FADE;
 	} else if (strcasecmp(str, "black") == 0) {
 		return DEMO_MODE_BLACK;
+	} else if (strcasecmp(str, "white") == 0) {
+		return DEMO_MODE_WHITE;
+	} else if (strcasecmp(str, "half") == 0) {
+		return DEMO_MODE_HALF;
 	} else {
 		return -1;
 	}
@@ -1711,6 +1719,12 @@ void* demo_thread(void* unused_data)
 
 						case DEMO_MODE_BLACK: {
 							buffer[data_index] = buffer[data_index+1] = buffer[data_index+2] = 0;
+						} break;
+						case DEMO_MODE_WHITE: {
+							buffer[data_index] = buffer[data_index+1] = buffer[data_index+2] = 255;
+						} break;
+						case DEMO_MODE_HALF: {
+							buffer[data_index] = buffer[data_index+1] = buffer[data_index+2] = 128;
 						} break;
 					}
 				}

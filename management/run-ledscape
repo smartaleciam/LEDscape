@@ -1,0 +1,1 @@
+./opc-server --config /var/www/opc-manager/config.json
