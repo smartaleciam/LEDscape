@@ -23,6 +23,9 @@ chown www-data /var/www/LEDscape/config.json
 echo "Modifying sudoers..."
 sh modify-sudoers.sh
 
+echo "Installing php..."
+apt-get install libapache2-mod-php5
+
 echo "Restarting Apache..."
-/etc/init.d/apache restart
+/etc/init.d/apache2 restart
 
